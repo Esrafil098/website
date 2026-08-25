@@ -1,0 +1,86 @@
+<%- include('partials/header') %>
+
+<section class="hero">
+  <div class="hero__inner">
+    <div class="hero__logo" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <h1 class="hero__title">Craft<span class="accent">Bars</span> Network</h1>
+    <p class="hero__subtitle">
+      A survival-first Minecraft community built around fair economy, active staff, and
+      a world that's actually worth defending. Grab your pickaxe and log in.
+    </p>
+
+    <div class="hero__cta">
+      <button class="btn btn--primary" data-ip="<%= stats.ip %>">
+        <i class="fa-solid fa-copy"></i> Copy IP — <%= stats.ip %>
+      </button>
+      <a href="/vote" class="btn btn--ghost"><i class="fa-solid fa-square-caret-up"></i> Vote Now</a>
+    </div>
+
+    <div class="hero__stats">
+      <div class="stat-box">
+        <div class="stat-box__top"><span class="stat-box__dot"></span> Server Status</div>
+        <div class="stat-box__value"><%= stats.playersOnline.toLocaleString() %></div>
+        <div class="stat-box__label">Players Online · <%= stats.ip %></div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box__top"><span class="stat-box__dot stat-box__dot--discord"></span> Discord</div>
+        <div class="stat-box__value"><%= stats.discordMembers.toLocaleString() %></div>
+        <div class="stat-box__label"><%= stats.discordOnline.toLocaleString() %> members online now</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box__top"><i class="fa-solid fa-square-caret-up" style="color: var(--accent); font-size: 0.75rem;"></i> Votes</div>
+        <div class="stat-box__value"><%= stats.votesToday.toLocaleString() %></div>
+        <div class="stat-box__label">Votes cast today</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="pixel-divider" aria-hidden="true">
+  <% for (let i = 0; i < 40; i++) { %><span></span><% } %>
+</div>
+
+<section class="feed-section">
+  <div class="container">
+    <div class="feed-section__head">
+      <div>
+        <p class="section-eyebrow">Server Updates</p>
+        <h2>Latest Announcements</h2>
+      </div>
+      <a href="/rules" class="btn btn--ghost btn--sm">Read the Rules <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+
+    <% if (notices && notices.length > 0) { %>
+      <div class="feed-grid">
+        <% notices.forEach(function(notice) { %>
+          <article class="notice-card <%= notice.pinned ? 'notice-card--pinned' : '' %>">
+            <div class="notice-card__meta">
+              <span class="tag <%= notice.pinned ? 'tag--pin' : '' %>">
+                <% if (notice.pinned) { %><i class="fa-solid fa-thumbtack"></i><% } %>
+                <%= notice.tag %>
+              </span>
+              <span class="notice-card__date">
+                <%= new Date(notice.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %>
+              </span>
+            </div>
+            <h3 class="notice-card__title"><%= notice.title %></h3>
+            <p class="notice-card__content"><%= notice.content %></p>
+            <div class="notice-card__author">
+              <i class="fa-solid fa-user-shield"></i> Posted by <%= notice.author %>
+            </div>
+          </article>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <div class="empty-state">
+        <i class="fa-solid fa-inbox"></i>
+        <p>No announcements yet. Check back soon — the CraftBars staff team posts updates here first.</p>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

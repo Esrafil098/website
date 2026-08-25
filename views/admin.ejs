@@ -1,0 +1,140 @@
+<%- include('partials/header') %>
+
+<section class="admin-shell">
+  <div class="admin-header">
+    <div>
+      <p class="section-eyebrow">Staff Panel</p>
+      <h1>Admin Dashboard</h1>
+    </div>
+    <form action="/admin/logout" method="POST">
+      <button type="submit" class="btn btn--ghost btn--sm">
+        <i class="fa-solid fa-right-from-bracket"></i> Log Out
+      </button>
+    </form>
+  </div>
+
+  <div class="admin-grid">
+    <!-- LEFT COLUMN -->
+    <div>
+      <div class="admin-card">
+        <h3 class="admin-card__title"><i class="fa-solid fa-bullhorn"></i> New Announcement</h3>
+        <form action="/admin/notices" method="POST">
+          <div class="form-group">
+            <label class="form-label" for="title">Title</label>
+            <input class="form-input" type="text" id="title" name="title" placeholder="e.g. Season 4 Launch — Nov 1st" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="author">Author</label>
+            <input class="form-input" type="text" id="author" name="author" placeholder="e.g. AdminSteve" value="CraftBars Staff" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="tag">Tag</label>
+            <select class="form-select" id="tag" name="tag">
+              <option value="News">News</option>
+              <option value="Update">Update</option>
+              <option value="Event">Event</option>
+              <option value="Maintenance">Maintenance</option>
+              <option value="Community">Community</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="content">Content</label>
+            <textarea class="form-textarea" id="content" name="content" placeholder="Write the announcement details..." required></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-checkbox">
+              <input type="checkbox" name="pinned" /> Pin to top of feed
+            </label>
+          </div>
+          <button type="submit" class="btn btn--primary btn--block">
+            <i class="fa-solid fa-paper-plane"></i> Publish Announcement
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div>
+      <div class="admin-card">
+        <h3 class="admin-card__title"><i class="fa-solid fa-list"></i> Manage Announcements</h3>
+        <% if (notices && notices.length > 0) { %>
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Tag</th>
+                <th>Date</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% notices.forEach(function(notice) { %>
+                <tr>
+                  <td class="admin-table__title"><%= notice.title %> <% if (notice.pinned) { %><i class="fa-solid fa-thumbtack" style="color: var(--gold); font-size: 0.75rem;"></i><% } %></td>
+                  <td><%= notice.author %></td>
+                  <td><span class="tag"><%= notice.tag %></span></td>
+                  <td><%= new Date(notice.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) %></td>
+                  <td>
+                    <form action="/admin/notices/<%= notice._id %>?_method=DELETE" method="POST" class="js-confirm-delete">
+                      <button type="submit" class="btn btn--danger btn--sm">
+                        <i class="fa-solid fa-trash"></i>
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        <% } else { %>
+          <div class="empty-state">
+            <i class="fa-solid fa-inbox"></i>
+            <p>No announcements posted yet. Create your first one using the form on the left.</p>
+          </div>
+        <% } %>
+      </div>
+
+      <div class="admin-card">
+        <h3 class="admin-card__title"><i class="fa-solid fa-scroll"></i> Manage Rules</h3>
+
+        <div class="rules-editor-tabs">
+          <button class="rules-editor-tab is-active" data-target="Home" type="button">Home</button>
+          <button class="rules-editor-tab" data-target="Minecraft" type="button">Minecraft</button>
+          <button class="rules-editor-tab" data-target="Discord" type="button">Discord</button>
+        </div>
+
+        <div class="rules-editor-panel is-active" data-panel="Home">
+          <p class="rules-editor-hint">One rule per line. Saving replaces the entire list for this category.</p>
+          <form action="/admin/rules/Home" method="POST">
+            <div class="form-group">
+              <textarea class="form-textarea" name="rulesText" style="min-height: 200px;"><%= rulesByCategory.Home.rulesArray.join('\n') %></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary btn--sm"><i class="fa-solid fa-floppy-disk"></i> Save Home Rules</button>
+          </form>
+        </div>
+
+        <div class="rules-editor-panel" data-panel="Minecraft">
+          <p class="rules-editor-hint">One rule per line. Saving replaces the entire list for this category.</p>
+          <form action="/admin/rules/Minecraft" method="POST">
+            <div class="form-group">
+              <textarea class="form-textarea" name="rulesText" style="min-height: 200px;"><%= rulesByCategory.Minecraft.rulesArray.join('\n') %></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary btn--sm"><i class="fa-solid fa-floppy-disk"></i> Save Minecraft Rules</button>
+          </form>
+        </div>
+
+        <div class="rules-editor-panel" data-panel="Discord">
+          <p class="rules-editor-hint">One rule per line. Saving replaces the entire list for this category.</p>
+          <form action="/admin/rules/Discord" method="POST">
+            <div class="form-group">
+              <textarea class="form-textarea" name="rulesText" style="min-height: 200px;"><%= rulesByCategory.Discord.rulesArray.join('\n') %></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary btn--sm"><i class="fa-solid fa-floppy-disk"></i> Save Discord Rules</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

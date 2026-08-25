@@ -1,0 +1,69 @@
+<%- include('partials/header') %>
+
+<section class="page-header">
+  <p class="section-eyebrow" style="justify-content: center;">Know Before You Play</p>
+  <h1 class="page-header__title">Server Rules</h1>
+  <p class="page-header__subtitle">
+    Every player agrees to these rules the moment they join. Ignorance isn't an excuse —
+    read carefully so you never lose progress over something avoidable.
+  </p>
+</section>
+
+<section class="rules-section">
+  <div class="rules-layout">
+    <div class="rules-tabs" role="tablist" aria-label="Rule categories">
+      <button class="rules-tab is-active" data-target="home" type="button">
+        <i class="fa-solid fa-house"></i> Home
+      </button>
+      <button class="rules-tab" data-target="minecraft" type="button">
+        <i class="fa-solid fa-cubes-stacked"></i> Minecraft
+      </button>
+      <button class="rules-tab" data-target="discord" type="button">
+        <i class="fa-brands fa-discord"></i> Discord
+      </button>
+    </div>
+
+    <div class="rules-content">
+      <div class="rules-panel is-active" data-panel="home">
+        <h3 class="rules-panel__title">General / Home Rules</h3>
+        <p class="rules-panel__subtitle">These apply everywhere — in-game, in Discord, and on our forums.</p>
+        <div class="rules-list">
+          <% rulesByCategory.Home.rulesArray.forEach(function(rule, i) { %>
+            <div class="rules-list__item">
+              <span class="rules-list__num">0<%= i + 1 %></span>
+              <span class="rules-list__text"><%= rule %></span>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+
+      <div class="rules-panel" data-panel="minecraft">
+        <h3 class="rules-panel__title">Minecraft Server Rules</h3>
+        <p class="rules-panel__subtitle">In-game conduct, building, and survival-mode expectations.</p>
+        <div class="rules-list">
+          <% rulesByCategory.Minecraft.rulesArray.forEach(function(rule, i) { %>
+            <div class="rules-list__item">
+              <span class="rules-list__num">0<%= i + 1 %></span>
+              <span class="rules-list__text"><%= rule %></span>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+
+      <div class="rules-panel" data-panel="discord">
+        <h3 class="rules-panel__title">Discord Server Rules</h3>
+        <p class="rules-panel__subtitle">How we expect members to behave across text and voice channels.</p>
+        <div class="rules-list">
+          <% rulesByCategory.Discord.rulesArray.forEach(function(rule, i) { %>
+            <div class="rules-list__item">
+              <span class="rules-list__num">0<%= i + 1 %></span>
+              <span class="rules-list__text"><%= rule %></span>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

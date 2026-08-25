@@ -1,0 +1,31 @@
+<%- include('partials/header') %>
+
+<section class="page-header">
+  <p class="section-eyebrow" style="justify-content: center;">Support The Server</p>
+  <h1 class="page-header__title">Vote for CraftBars</h1>
+  <p class="page-header__subtitle">
+    Voting helps us climb the server lists and bring in new players — and it pays you back.
+    Vote on every site below once every 24 hours for max rewards.
+  </p>
+</section>
+
+<section class="vote-section">
+  <div class="container" style="margin-bottom: 32px; text-align: center;">
+    <span class="tag"><i class="fa-solid fa-gift"></i> <%= stats.votesToday.toLocaleString() %> votes cast today</span>
+  </div>
+
+  <div class="vote-grid">
+    <% voteSites.forEach(function(site) { %>
+      <a href="<%= site.url %>" class="vote-card" target="_blank" rel="noopener noreferrer">
+        <div class="vote-card__icon"><i class="fa-solid <%= site.icon %>"></i></div>
+        <div>
+          <h3 class="vote-card__name"><%= site.name %></h3>
+          <p class="vote-card__reward"><i class="fa-solid fa-coins" style="color: var(--gold);"></i> <%= site.reward %></p>
+        </div>
+        <span class="btn btn--ghost btn--sm btn--block">Vote Now <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+      </a>
+    <% }); %>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,44 @@
+<%- include('partials/header') %>
+
+<section class="page-header">
+  <p class="section-eyebrow" style="justify-content: center;">CraftBars Store</p>
+  <h1 class="page-header__title">Ranks &amp; Perks</h1>
+  <p class="page-header__subtitle">
+    Every purchase directly funds server hardware and development. Ranks never grant
+    gameplay-breaking advantages — only cosmetics, convenience, and quality of life.
+  </p>
+</section>
+
+<section class="store-section">
+  <div class="store-grid">
+    <% packages.forEach(function(pkg) { %>
+      <div class="package-card <%= pkg.popular ? 'package-card--popular' : '' %>">
+        <% if (pkg.popular) { %><span class="package-card__badge">Most Popular</span><% } %>
+        <div class="package-card__rank" style="background: <%= pkg.color %>22; color: <%= pkg.color %>; border: 1px solid <%= pkg.color %>44;">
+          <i class="fa-solid fa-gem"></i>
+        </div>
+        <h3 class="package-card__name"><%= pkg.name %></h3>
+        <div class="package-card__price"><%= pkg.price %> <span>/ one-time</span></div>
+        <ul class="package-card__features">
+          <% pkg.features.forEach(function(feature) { %>
+            <li><i class="fa-solid fa-circle-check"></i> <%= feature %></li>
+          <% }); %>
+        </ul>
+        <a href="#" class="btn <%= pkg.popular ? 'btn--primary' : 'btn--ghost' %> btn--block">
+          <i class="fa-solid fa-cart-shopping"></i> Purchase
+        </a>
+      </div>
+    <% }); %>
+  </div>
+
+  <div class="payment-strip">
+    <span class="payment-strip__label"><i class="fa-solid fa-lock"></i> Secure checkout powered by</span>
+    <div class="payment-strip__icons">
+      <% paymentMethods.forEach(function(method) { %>
+        <i class="fa-brands <%= method.icon %>" title="<%= method.name %>"></i>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
