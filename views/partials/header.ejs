@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <meta name="description" content="CraftBars Network — a modded & vanilla Minecraft server community. Join play.craftbars.net" />
+
+  <!-- Google Fonts: Rajdhani (display) + Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230f0f12%22/><rect x=%2225%22 y=%2225%22 width=%2250%22 height=%2250%22 fill=%22%23ff3b3f%22/></svg>">
+</head>
+<body>
+
+  <div class="site-bg-grid"></div>
+
+  <header class="navbar">
+    <div class="navbar__inner">
+      <a href="/" class="navbar__brand">
+        <span class="navbar__brand-block"></span>
+        <span class="navbar__brand-text">CraftBars<span class="accent">.</span></span>
+      </a>
+
+      <nav class="navbar__links" id="navLinks">
+        <a href="/" class="navbar__link <%= activePage === 'home' ? 'is-active' : '' %>">Home</a>
+        <a href="/rules" class="navbar__link <%= activePage === 'rules' ? 'is-active' : '' %>">Rules</a>
+        <a href="/vote" class="navbar__link <%= activePage === 'vote' ? 'is-active' : '' %>">Vote</a>
+        <a href="/store" class="navbar__link <%= activePage === 'store' ? 'is-active' : '' %>">Store</a>
+        <a href="#staff" class="navbar__link">Staff</a>
+        <a href="#apply" class="navbar__link">Apply</a>
+      </nav>
+
+      <div class="navbar__actions">
+        <button class="btn btn--copy" id="navCopyIp" type="button" data-ip="play.craftbars.net">
+          <i class="fa-solid fa-copy"></i> play.craftbars.net
+        </button>
+        <button class="navbar__burger" id="navBurger" aria-label="Toggle menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
